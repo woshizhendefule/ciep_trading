@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengyu.ciep_trading.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.User">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="studentId" column="student_id" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="creditScore" column="credit_score" jdbcType="INTEGER"/>
+            <result property="isSeller" column="is_seller" jdbcType="TINYINT"/>
+            <result property="isAdmin" column="is_admin" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,password,
+        student_id,phone,credit_score,
+        is_seller,is_admin
+    </sql>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengyu.ciep_trading.mapper.MassageMapper">
+
+    <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.Massage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="details" column="details" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,details,create_time,
+        goods_user_id,user_id
+    </sql>
+</mapper>
