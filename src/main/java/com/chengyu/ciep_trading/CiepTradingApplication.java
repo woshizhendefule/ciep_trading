@@ -3,6 +3,9 @@ package com.chengyu.ciep_trading;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author CL
+ */
 @SpringBootApplication
 public class CiepTradingApplication {
 

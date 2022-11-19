@@ -17,8 +17,6 @@ create table user
 )
     comment '用户表';
 
-
-
 -- auto-generated definition
 create table goods
 (
