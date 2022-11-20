@@ -2,6 +2,7 @@ package com.chengyu.ciep_trading.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chengyu.ciep_trading.domain.User;
+import com.chengyu.ciep_trading.domain.vo.UserInfo;
 
 /**
  * @author CL
@@ -50,5 +51,21 @@ public interface UserService extends IService<User> {
      * @return boolean
      */
     boolean changePassword(String name, String oldPassword, String newPassword);
+
+    /**
+     * 用户个人信息查看
+     *
+     * @return UserInfo - User 脱敏
+     */
+    UserInfo toViewUserInfo();
+
+    /**
+     * 用户个人信息修改
+     *
+     * @param user 用户User数据
+     * @return boolean
+     */
+    boolean modifyUser(User user);
+
 
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chengyu.ciep_trading.domain.User;
+import com.chengyu.ciep_trading.domain.vo.UserInfo;
 import com.chengyu.ciep_trading.mapper.UserMapper;
 import com.chengyu.ciep_trading.service.UserService;
 import org.springframework.stereotype.Service;
@@ -107,6 +108,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
         wrapper.eq("name", name);
         wrapper.set("password", newPassword);
+        return this.update(wrapper);
+    }
+
+    @Override
+    public UserInfo toViewUserInfo() {
+        // 信息查看
+        User byId = this.getById(5);
+        if (byId == null) {
+            return null;
+        }
+        return new UserInfo(byId);
+    }
+
+    @Override
+    public boolean modifyUser(User user) {
+        // 校验
+        if (user.getId() == null && user.getId() < 0) {
+            return false;
+        }
+
+        // 验证用户是否存在
+        User byId = this.getById(user.getId());
+        if (byId == null) {
+            return false;
+        }
+
+        // 判断（name）唯一
+        UpdateWrapper<User> wrapperNa = new UpdateWrapper<>();
+        wrapperNa.eq("name", user.getName());
+        long count = this.count(wrapperNa);
+        if (count >= 1) {
+            return false;
+        }
+
+        // 修改（name / phone）
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", user.getId());
+        wrapper.set("name", user.getName());
+        wrapper.set("phone", user.getPhone());
         return this.update(wrapper);
     }
 }
