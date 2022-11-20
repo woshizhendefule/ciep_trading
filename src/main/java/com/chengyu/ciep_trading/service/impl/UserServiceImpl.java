@@ -49,7 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return false;
         }
 
-        // 插入用户表
+        // 注册用户表
         User user = new User();
         user.setName(name);
         user.setPassword(password);
@@ -70,7 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return false;
         }
 
-        // 判断用户名 / 学号 / 手机是否存在
+        // 判断用户名 / 学号 / 手机是否正确
         QueryWrapper<User> wrapperTh = new QueryWrapper<>();
         wrapperTh.eq("name", name)
                 .or().eq("student_id", studentId)
@@ -80,7 +80,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return false;
         }
 
-        // 插入（新）密码
+        // 更新（新）密码
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
         wrapper.eq("name", name);
         wrapper.set("password", newPassword);
