@@ -1,12 +1,14 @@
 package com.chengyu.ciep_trading.domain.vo;
 
 import com.chengyu.ciep_trading.domain.User;
+import lombok.Data;
 
 /**
  * User 脱敏
  *
  * @author CL
  */
+@Data
 public class UserInfo {
 
     /**

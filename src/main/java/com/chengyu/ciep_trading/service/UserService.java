@@ -60,7 +60,7 @@ public interface UserService extends IService<User> {
     UserInfo toViewUserInfo();
 
     /**
-     * 用户个人信息修改
+     * 用户个人信息修改（name / phone）
      *
      * @param user 用户User数据
      * @return boolean
