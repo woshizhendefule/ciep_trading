@@ -10,6 +10,9 @@ import com.chengyu.ciep_trading.mapper.UserMapper;
 import com.chengyu.ciep_trading.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author CL
  * @description 针对表【user(用户表)】的数据库操作Service实现
@@ -113,11 +116,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public UserInfo toViewUserInfo() {
-        // 信息查看
+        // 判断用户是否存在
         User byId = this.getById(5);
         if (byId == null) {
             return null;
         }
+
+        // 信息查看
         return new UserInfo(byId);
     }
 
@@ -149,8 +154,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         wrapper.set("phone", user.getPhone());
         return this.update(wrapper);
     }
+
+    @Override
+    public boolean sellerQualificationApply() {
+        // 更新用户类型（ 0 → 2 ）
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", 5);
+        wrapper.set("is_seller", 2);
+        return this.update(wrapper);
+    }
+
+    @Override
+    public List<UserInfo> getAllUser() {
+        // 判断有无用户，查询到所有待审核用户
+        List<User> list = this.list();
+        List<UserInfo> userInfoList = new ArrayList<>();
+        for (User user : list) {
+            userInfoList.add(new UserInfo(user));
+        }
+        return userInfoList;
+    }
+
+    @Override
+    public boolean deleteUser() {
+        // 判断用户是否存在
+        User byId = this.getById(9);
+        if (byId == null) {
+            return false;
+        }
+        // 判断商品表是否存在用户信息
+
+        // 判断用户商品收藏表是否存在用户信息
+
+        // 判断订单表是否存在用户信息
+
+        // 判断留言表是否存在用户信息
+
+        // 删除用户
+        return this.removeById(9);
+    }
 }
-
-
-
-

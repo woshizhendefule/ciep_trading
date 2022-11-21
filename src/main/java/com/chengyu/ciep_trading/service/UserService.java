@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.chengyu.ciep_trading.domain.User;
 import com.chengyu.ciep_trading.domain.vo.UserInfo;
 
+import java.util.List;
+
 /**
  * @author CL
  * @description 针对表【user(用户表)】的数据库操作Service
@@ -67,5 +69,27 @@ public interface UserService extends IService<User> {
      */
     boolean modifyUser(User user);
 
+    /**
+     * 卖家资质申请
+     *
+     * @param
+     * @return boolean
+     */
+    boolean sellerQualificationApply();
+
+    /**
+     * 显示所有用户
+     *
+     * @param
+     * @return
+     */
+    List<UserInfo> getAllUser();
+
+    /**
+     * 删除指定用户
+     *
+     * @return boolean
+     */
+    boolean deleteUser();
 
 }

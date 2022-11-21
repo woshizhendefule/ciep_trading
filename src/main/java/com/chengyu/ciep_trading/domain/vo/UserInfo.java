@@ -49,6 +49,4 @@ public class UserInfo {
         this.creditScore = user.getCreditScore();
         this.isSeller = user.getIsSeller();
     }
-
-
 }
