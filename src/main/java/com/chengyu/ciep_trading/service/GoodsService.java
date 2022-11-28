@@ -15,8 +15,7 @@ public interface GoodsService extends IService<Goods> {
     /**
      * 浏览商品（发布时间降序）
      *
-     * @param
-     * @return
+     * @return 商品列表
      */
     List<Goods> getAllGoodsOrderBy();
 

@@ -59,12 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         user.setPassword(password);
         user.setStudentId(studentId);
         user.setPhone(phone);
-        boolean save = this.save(user);
-        if (!save) {
-            return false;
-        }
-
-        return true;
+        return this.save(user);
     }
 
     @Override
@@ -178,19 +173,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public boolean deleteUser() {
         // 判断用户是否存在
-        User byId = this.getById(9);
-        if (byId == null) {
+        User user = this.getById(10);
+        if (user == null) {
             return false;
         }
-        // 判断商品表是否存在用户信息
-
-        // 判断用户商品收藏表是否存在用户信息
-
-        // 判断订单表是否存在用户信息
-
-        // 判断留言表是否存在用户信息
-
         // 删除用户
-        return this.removeById(9);
+        return this.removeById(10);
     }
+
+    @Override
+    public boolean sellerQualificationCheck() {
+        // 更新用户类型（ 2 → 1 ）
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", 5);
+        wrapper.set("is_seller", 1);
+        return this.update(wrapper);
+    }
+
+
 }

@@ -72,7 +72,6 @@ public interface UserService extends IService<User> {
     /**
      * 卖家资质申请
      *
-     * @param
      * @return boolean
      */
     boolean sellerQualificationApply();
@@ -80,8 +79,7 @@ public interface UserService extends IService<User> {
     /**
      * 显示所有用户
      *
-     * @param
-     * @return
+     * @return 脱敏用户列表
      */
     List<UserInfo> getAllUser();
 
@@ -92,4 +90,10 @@ public interface UserService extends IService<User> {
      */
     boolean deleteUser();
 
+    /**
+     * 卖家资质审核
+     *
+     * @return boolean
+     */
+    boolean sellerQualificationCheck();
 }

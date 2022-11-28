@@ -4,15 +4,18 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 商品表
+ *
+ * @author CL
  * @TableName goods
  */
-@TableName(value ="goods")
+@TableName(value = "goods")
 @Data
 public class Goods implements Serializable {
     /**
