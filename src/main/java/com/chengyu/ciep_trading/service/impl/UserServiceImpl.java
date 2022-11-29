@@ -8,6 +8,7 @@ import com.chengyu.ciep_trading.domain.User;
 import com.chengyu.ciep_trading.domain.vo.UserInfo;
 import com.chengyu.ciep_trading.mapper.UserMapper;
 import com.chengyu.ciep_trading.service.UserService;
+import com.chengyu.ciep_trading.utils.JwtUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,18 +24,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         implements UserService {
 
     @Override
-    public boolean login(String name, String password) {
+    public String login(String name, String password) {
         // 校验
         if (StrUtil.hasBlank(name, password)) {
-            return false;
+            return null;
         }
 
         // 用户名密码是否正确
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("name", name)
                 .eq("password", password);
-        long count = this.count(wrapper);
-        return count == 1;
+        User user = this.getOne(wrapper);
+        if (user == null) {
+            return null;
+        }
+        return JwtUtils.generateToken(user.getId());
     }
 
     @Override

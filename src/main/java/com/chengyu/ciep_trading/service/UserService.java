@@ -18,9 +18,9 @@ public interface UserService extends IService<User> {
      *
      * @param name     用户名
      * @param password 密码
-     * @return boolean
+     * @return Token(String)
      */
-    boolean login(String name, String password);
+    String login(String name, String password);
 
     /**
      * 用户注册
