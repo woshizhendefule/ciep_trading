@@ -4,3 +4,6 @@ spring:
     url: jdbc:mysql://81.69.248.50:3306/ciep
     username: ciep
     password: 123456
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
