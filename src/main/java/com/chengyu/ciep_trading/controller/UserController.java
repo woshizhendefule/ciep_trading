@@ -1,5 +1,7 @@
 package com.chengyu.ciep_trading.controller;
 
+import com.chengyu.ciep_trading.common.BaseResponse;
+import com.chengyu.ciep_trading.common.ResultUtils;
 import com.chengyu.ciep_trading.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +21,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login(@RequestParam("name") String name, @RequestParam("password") String password) {
-        return userService.login(name, password);
+    public BaseResponse<String> login(@RequestParam("name") String name, @RequestParam("password") String password) {
+        return ResultUtils.success(userService.login(name, password));
     }
 
 }

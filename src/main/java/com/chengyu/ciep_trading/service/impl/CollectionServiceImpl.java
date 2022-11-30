@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chengyu.ciep_trading.domain.Collection;
 import com.chengyu.ciep_trading.domain.Goods;
 import com.chengyu.ciep_trading.domain.User;
-import com.chengyu.ciep_trading.service.CollectionService;
 import com.chengyu.ciep_trading.mapper.CollectionMapper;
+import com.chengyu.ciep_trading.service.CollectionService;
 import com.chengyu.ciep_trading.service.GoodsService;
 import com.chengyu.ciep_trading.service.UserService;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
-* @author CL
-* @description 针对表【collection(用户商品收藏表)】的数据库操作Service实现
-* @createDate 2022-11-17 23:20:33
-*/
+ * @author CL
+ * @description 针对表【collection(用户商品收藏表)】的数据库操作Service实现
+ * @createDate 2022-11-17 23:20:33
+ */
 @Service
 public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collection>
-    implements CollectionService{
+        implements CollectionService {
 
     @Resource
     private UserService userService;

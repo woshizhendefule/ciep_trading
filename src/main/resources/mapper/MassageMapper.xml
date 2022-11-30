@@ -5,11 +5,11 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.MassageMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.Massage">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="details" column="details" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="details" column="details" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

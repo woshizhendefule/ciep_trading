@@ -5,9 +5,9 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.CollectionMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.Collection">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

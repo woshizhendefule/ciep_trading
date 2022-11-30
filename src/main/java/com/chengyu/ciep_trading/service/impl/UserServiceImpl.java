@@ -4,8 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chengyu.ciep_trading.common.ResultCode;
 import com.chengyu.ciep_trading.domain.User;
 import com.chengyu.ciep_trading.domain.vo.UserInfo;
+import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.mapper.UserMapper;
 import com.chengyu.ciep_trading.service.UserService;
 import com.chengyu.ciep_trading.utils.JwtUtils;
@@ -27,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public String login(String name, String password) {
         // 校验
         if (StrUtil.hasBlank(name, password)) {
-            return null;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名或密码为空");
         }
 
         // 用户名密码是否正确
@@ -36,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 .eq("password", password);
         User user = this.getOne(wrapper);
         if (user == null) {
-            return null;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该用户");
         }
         return JwtUtils.generateToken(user.getId());
     }

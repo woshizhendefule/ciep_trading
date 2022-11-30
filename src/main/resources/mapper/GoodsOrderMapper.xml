@@ -5,13 +5,13 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.GoodsOrderMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.GoodsOrder">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="status" column="status" jdbcType="TINYINT"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="completeTime" column="complete_time" jdbcType="TIMESTAMP"/>
-            <result property="sellerScore" column="seller_score" jdbcType="INTEGER"/>
-            <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="completeTime" column="complete_time" jdbcType="TIMESTAMP"/>
+        <result property="sellerScore" column="seller_score" jdbcType="INTEGER"/>
+        <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
