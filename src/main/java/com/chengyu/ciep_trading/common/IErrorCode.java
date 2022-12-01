@@ -26,5 +26,4 @@ public interface IErrorCode {
      * @return description String值
      */
     public String getDescription();
-
 }
