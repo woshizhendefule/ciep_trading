@@ -2,11 +2,9 @@ package com.chengyu.ciep_trading.controller;
 
 import com.chengyu.ciep_trading.common.BaseResponse;
 import com.chengyu.ciep_trading.common.ResultUtils;
+import com.chengyu.ciep_trading.domain.User;
 import com.chengyu.ciep_trading.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -25,4 +23,13 @@ public class UserController {
         return ResultUtils.success(userService.login(name, password));
     }
 
+    @PostMapping("/registered")
+    public BaseResponse<Boolean> registered(@RequestBody User user) {
+        return ResultUtils.success(userService.registered(user.getName(), user.getPassword(), user.getStudentId(), user.getPhone()));
+    }
+
+    @PostMapping("/retrievePassword")
+    public BaseResponse<Boolean> retrievePassword(@RequestBody User user) {
+        return ResultUtils.success(userService.retrievePassword(user.getName(), user.getStudentId(), user.getPhone(), user.getPassword()));
+    }
 }

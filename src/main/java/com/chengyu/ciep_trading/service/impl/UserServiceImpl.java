@@ -29,16 +29,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public String login(String name, String password) {
         // 校验
         if (StrUtil.hasBlank(name, password)) {
-            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名或密码为空");
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
-        // 用户名密码是否正确
+        // 用户名是否存在
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name", name)
-                .eq("password", password);
+        wrapper.eq("name", name);
+        if (this.getOne(wrapper) == null) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该用户");
+        }
+
+        // 密码是否正确
+        wrapper.eq("password", password);
         User user = this.getOne(wrapper);
         if (user == null) {
-            throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该用户");
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "密码错误");
         }
         return JwtUtils.generateToken(user.getId());
     }
@@ -47,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public boolean registered(String name, String password, String studentId, String phone) {
         // 校验
         if (StrUtil.hasBlank(name, password, studentId, phone)) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         // 判断用户名是否存在
@@ -56,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 .or().eq("student_id", studentId);
         long count = this.count(wrapper);
         if (count >= 1) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名已存在");
         }
 
         // 注册用户表
@@ -72,17 +77,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public boolean retrievePassword(String name, String studentId, String phone, String newPassword) {
         // 校验
         if (StrUtil.hasBlank(name, studentId, phone, newPassword)) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         // 判断用户名 / 学号 / 手机是否正确
         QueryWrapper<User> wrapperTh = new QueryWrapper<>();
         wrapperTh.eq("name", name)
-                .or().eq("student_id", studentId)
-                .or().eq("phone", phone);
+                .eq("student_id", studentId)
+                .eq("phone", phone);
         long count = this.count(wrapperTh);
         if (count != 1) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名、学号、手机不正确");
         }
 
         // 更新（新）密码
@@ -96,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public boolean changePassword(String name, String oldPassword, String newPassword) {
         // 校验
         if (StrUtil.hasBlank(name, oldPassword, newPassword)) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         //判断用户名 / （旧）密码是否存在
@@ -105,7 +110,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 .eq("password", oldPassword);
         long count = this.count(wrapperTh);
         if (count != 1) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "操作用户不存在");
         }
 
         // 更新（新）密码

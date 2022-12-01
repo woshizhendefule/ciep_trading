@@ -1,6 +1,8 @@
 package com.chengyu.ciep_trading.aop;
 
+import com.chengyu.ciep_trading.common.ResultCode;
 import com.chengyu.ciep_trading.domain.vo.UserInfo;
+import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.utils.JwtUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,6 +30,8 @@ public class UserIdAdvice {
     static {
         CONTROLLER_MAPPING = new HashSet<>();
         CONTROLLER_MAPPING.add("/user/login");
+        CONTROLLER_MAPPING.add("/user/registered");
+        CONTROLLER_MAPPING.add("/user/retrievePassword");
     }
 
     /**
@@ -60,7 +64,7 @@ public class UserIdAdvice {
         // 判断调用方法Mapping是否需要Token解析方法：CONTROLLER_MAPPING中的mapping 必定不执行；
         //                                      CONTROLLER_MAPPING外的mapping 若无authorization的Token值则执行，反之执行
         if (!CONTROLLER_MAPPING.contains(requestURI) && authorization == null) {
-            return;
+            throw new BusinessException(ResultCode.TOKEN_ERROR, "未登录");
         }
 
         Integer id = null;

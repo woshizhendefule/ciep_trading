@@ -1,5 +1,7 @@
 package com.chengyu.ciep_trading.utils;
 
+import com.chengyu.ciep_trading.common.ResultCode;
+import com.chengyu.ciep_trading.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -58,12 +60,12 @@ public class JwtUtils {
             // get 过期时间并判断是否过期
             Date date = claims.getExpiration();
             if (date.before(new Date())) {
-                return null;
+                throw new BusinessException(ResultCode.TOKEN_ERROR, "Token过期");
             }
             // 获取用户id
             id = Integer.parseInt(claims.getSubject());
         } catch (Exception e) {
-            return null;
+            throw new BusinessException(ResultCode.TOKEN_ERROR, "Token错误");
         }
         return id;
     }

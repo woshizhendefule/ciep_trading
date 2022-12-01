@@ -15,6 +15,8 @@ public enum ResultCode implements IErrorCode {
 
     PARAMS_ERROR(40401, "请求参数错误", ""),
 
+    TOKEN_ERROR(40402, "Token错误", ""),
+
     SYSTEM_ERROR(50000, "系统内部异常", "");
 
     /**
