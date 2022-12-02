@@ -4,7 +4,7 @@ import com.chengyu.ciep_trading.domain.User;
 import lombok.Data;
 
 /**
- * User 脱敏
+ * User 脱敏（无password / 无isAdmin）
  *
  * @author CL
  */
@@ -40,6 +40,10 @@ public class UserInfo {
      * 用户类型 0-买家 1-卖家 2-待审核
      */
     private Integer isSeller;
+
+    public UserInfo() {
+
+    }
 
     public UserInfo(User user) {
         this.id = user.getId();

@@ -1,6 +1,7 @@
 package com.chengyu.ciep_trading.aop;
 
 import com.chengyu.ciep_trading.common.ResultCode;
+import com.chengyu.ciep_trading.domain.User;
 import com.chengyu.ciep_trading.domain.vo.UserInfo;
 import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.utils.JwtUtils;
@@ -61,14 +62,13 @@ public class UserIdAdvice {
         // 获取Request URI
         String requestURI = request.getRequestURI();
 
+        Integer id = null;
         // 判断调用方法Mapping是否需要Token解析方法：CONTROLLER_MAPPING中的mapping 必定不执行；
         //                                      CONTROLLER_MAPPING外的mapping 若无authorization的Token值则执行，反之执行
-        if (!CONTROLLER_MAPPING.contains(requestURI) && authorization == null) {
-            throw new BusinessException(ResultCode.TOKEN_ERROR, "未登录");
-        }
-
-        Integer id = null;
-        if (authorization != null) {
+        if (!CONTROLLER_MAPPING.contains(requestURI)) {
+            if (authorization == null) {
+                throw new BusinessException(ResultCode.TOKEN_ERROR, "未登录");
+            }
             // 截断Authorization的BEARER 值 获取Token
             String token = authorization.substring(BEARER.length());
             // Token解析 获取id
@@ -82,6 +82,11 @@ public class UserIdAdvice {
             if (arg instanceof UserInfo) {
                 UserInfo userInfo = (UserInfo) arg;
                 userInfo.setId(id);
+            }
+            // 如果arg属于User类/子类，arg强转为User并赋值
+            if (arg instanceof User) {
+                User user = (User) arg;
+                user.setId(id);
             }
         }
     }

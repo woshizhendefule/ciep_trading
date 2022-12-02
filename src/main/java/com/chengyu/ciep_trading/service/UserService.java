@@ -47,19 +47,19 @@ public interface UserService extends IService<User> {
     /**
      * 修改密码
      *
-     * @param name        用户名
-     * @param oldPassword (旧)密码
+     * @param id          用户id
      * @param newPassword (新)密码
      * @return boolean
      */
-    boolean changePassword(String name, String oldPassword, String newPassword);
+    boolean changePassword(Integer id, String newPassword);
 
     /**
      * 用户个人信息查看
      *
+     * @param id 用户id
      * @return UserInfo - User 脱敏
      */
-    UserInfo toViewUserInfo();
+    UserInfo toViewUserInfo(Integer id);
 
     /**
      * 用户个人信息修改（name / phone）
@@ -72,9 +72,10 @@ public interface UserService extends IService<User> {
     /**
      * 卖家资质申请
      *
+     * @param id 用户id
      * @return boolean
      */
-    boolean sellerQualificationApply();
+    boolean sellerQualificationApply(Integer id);
 
     /**
      * 显示所有用户
@@ -86,14 +87,24 @@ public interface UserService extends IService<User> {
     /**
      * 删除指定用户
      *
+     * @param id 用户id
      * @return boolean
      */
-    boolean deleteUser();
+    boolean deleteUser(Integer id);
 
     /**
-     * 卖家资质审核
+     * 卖家资质审核通过
      *
+     * @param id 用户id
      * @return boolean
      */
-    boolean sellerQualificationCheck();
+    boolean sellerQualificationCheckPass(Integer id);
+
+    /**
+     * 卖家资质审核未通过
+     *
+     * @param id 用户id
+     * @return boolean
+     */
+    boolean sellerQualificationCheckNotPass(Integer id);
 }

@@ -98,59 +98,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public boolean changePassword(String name, String oldPassword, String newPassword) {
+    public boolean changePassword(Integer id, String newPassword) {
         // 校验
-        if (StrUtil.hasBlank(name, oldPassword, newPassword)) {
+        if (StrUtil.hasBlank(newPassword)) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
-        }
-
-        //判断用户名 / （旧）密码是否存在
-        QueryWrapper<User> wrapperTh = new QueryWrapper<>();
-        wrapperTh.eq("name", name)
-                .eq("password", oldPassword);
-        long count = this.count(wrapperTh);
-        if (count != 1) {
-            throw new BusinessException(ResultCode.PARAMS_ERROR, "操作用户不存在");
         }
 
         // 更新（新）密码
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("name", name);
+        wrapper.eq("id", id);
         wrapper.set("password", newPassword);
         return this.update(wrapper);
     }
 
     @Override
-    public UserInfo toViewUserInfo() {
-        // 判断用户是否存在
-        User byId = this.getById(5);
-        if (byId == null) {
-            return null;
-        }
-
+    public UserInfo toViewUserInfo(Integer id) {
         // 信息查看
-        return new UserInfo(byId);
+        return new UserInfo(this.getById(id));
     }
 
     @Override
     public boolean modifyUser(User user) {
         // 校验
-        if (user.getId() == null && user.getId() < 0) {
-            return false;
-        }
-
-        // 验证用户是否存在
-        User byId = this.getById(user.getId());
-        if (byId == null) {
-            return false;
+        if (StrUtil.hasBlank(user.getName(), user.getPhone())) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         // 判断（name）唯一
         UpdateWrapper<User> wrapperNa = new UpdateWrapper<>();
         wrapperNa.eq("name", user.getName());
-        long count = this.count(wrapperNa);
-        if (count >= 1) {
-            return false;
+        User userNa = this.getOne(wrapperNa);
+        if (!userNa.getId().equals(user.getId())) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名已存在");
         }
 
         // 修改（name / phone）
@@ -162,17 +141,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public boolean sellerQualificationApply() {
+    public boolean sellerQualificationApply(Integer id) {
         // 更新用户类型（ 0 → 2 ）
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("id", 5);
+        wrapper.eq("id", id);
         wrapper.set("is_seller", 2);
         return this.update(wrapper);
     }
 
     @Override
     public List<UserInfo> getAllUser() {
-        // 判断有无用户，查询到所有待审核用户
+        // 查询到所有用户
         List<User> list = this.list();
         List<UserInfo> userInfoList = new ArrayList<>();
         for (User user : list) {
@@ -182,24 +161,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public boolean deleteUser() {
-        // 判断用户是否存在
-        User user = this.getById(10);
-        if (user == null) {
-            return false;
-        }
+    public boolean deleteUser(Integer id) {
         // 删除用户
-        return this.removeById(10);
+        return this.removeById(id);
     }
 
     @Override
-    public boolean sellerQualificationCheck() {
+    public boolean sellerQualificationCheckPass(Integer id) {
         // 更新用户类型（ 2 → 1 ）
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("id", 5);
+        wrapper.eq("id", id);
         wrapper.set("is_seller", 1);
         return this.update(wrapper);
     }
 
-
+    @Override
+    public boolean sellerQualificationCheckNotPass(Integer id) {
+        // 更新用户类型（ 2 → 0 ）
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.set("is_seller", 0);
+        return this.update(wrapper);
+    }
 }
