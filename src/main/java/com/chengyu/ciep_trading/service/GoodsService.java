@@ -19,4 +19,12 @@ public interface GoodsService extends IService<Goods> {
      */
     List<Goods> getAllGoodsOrderBy();
 
+    /**
+     * 查看商品信息
+     *
+     * @param id 商品id
+     * @return Goods
+     */
+    Goods toViewGoods(Integer id);
+
 }

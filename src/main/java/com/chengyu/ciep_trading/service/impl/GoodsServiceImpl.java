@@ -2,7 +2,9 @@ package com.chengyu.ciep_trading.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chengyu.ciep_trading.common.ResultCode;
 import com.chengyu.ciep_trading.domain.Goods;
+import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.mapper.GoodsMapper;
 import com.chengyu.ciep_trading.service.GoodsService;
 import org.springframework.stereotype.Service;
@@ -20,15 +22,22 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
 
     @Override
     public List<Goods> getAllGoodsOrderBy() {
-        // 判断有无商品,查询到所有商品
+        // 查询到所有商品
         QueryWrapper<Goods> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("release_time");
         return this.list(wrapper);
     }
 
+    @Override
+    public Goods toViewGoods(Integer id) {
+        // 判断商品有无存在
+        Goods byId = this.getById(id);
+        if (byId == null) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该商品");
+        }
+        // 信息查看
+        return byId;
+    }
+
 
 }
-
-
-
-
