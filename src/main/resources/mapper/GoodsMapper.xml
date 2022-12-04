@@ -5,18 +5,18 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.GoodsMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.Goods">
-        <id property="id" column="id" jdbcType="INTEGER"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
-        <result property="picture" column="picture" jdbcType="VARCHAR"/>
-        <result property="price" column="price" jdbcType="DOUBLE"/>
-        <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DOUBLE"/>
+            <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
+            <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,name,introduce,
-        picture,price,release_time,
-        user_id
+        price,release_time,is_release,
+        user_id,picture,credential
     </sql>
 </mapper>

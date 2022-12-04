@@ -24,12 +24,15 @@ create table goods
         primary key,
     name         varchar(255)                           not null comment '商品名称',
     introduce    varchar(255) default ''                null comment '商品介绍',
-    picture      varchar(255) default ''                null comment '商品图片',
+    picture      longblob                               null comment '商品图片',
+    credential   longblob                               null comment '商品凭证',
     price        double       default 0                 null comment '商品价格',
     release_time timestamp    default CURRENT_TIMESTAMP null comment '发布时间',
+    is_release   tinyint      default 0                 not null comment '商品状态 0-已发布 1-未发布 2-待审核',
     user_id      int                                    null comment '用户id',
     constraint goods_user_null_fk
         foreign key (user_id) references user (id)
+            on update cascade on delete cascade
 )
     comment '商品表';
 
