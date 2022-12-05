@@ -2,9 +2,12 @@ package com.chengyu.ciep_trading.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chengyu.ciep_trading.common.ResultCode;
 import com.chengyu.ciep_trading.domain.Collection;
 import com.chengyu.ciep_trading.domain.Goods;
 import com.chengyu.ciep_trading.domain.User;
+import com.chengyu.ciep_trading.domain.vo.CollectionInfo;
+import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.mapper.CollectionMapper;
 import com.chengyu.ciep_trading.service.CollectionService;
 import com.chengyu.ciep_trading.service.GoodsService;
@@ -12,6 +15,7 @@ import com.chengyu.ciep_trading.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author CL
@@ -28,13 +32,16 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     @Resource
     private GoodsService goodsService;
 
+    @Resource
+    private CollectionMapper collectionMapper;
+
     @Override
-    public boolean goodsCollection(Integer goodsId, Integer userId) {
+    public boolean goodsCollection(Integer userId, Integer goodsId) {
         // 校验
         User user = userService.getById(userId);
         Goods goods = goodsService.getById(goodsId);
         if (user == null || goods == null) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         // 判断是否已经收藏
@@ -43,7 +50,7 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         wrapper.eq("goods_id", goodsId);
         long count = this.count(wrapper);
         if (count >= 1) {
-            return false;
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "该用户已收藏该商品");
         }
 
         // 插入收藏表
@@ -53,7 +60,37 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         return this.save(collection);
     }
 
+    @Override
+    public boolean deleteCollection(Integer id) {
+        // 校验
+        Collection collection = this.getById(id);
+        if (collection == null) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
+        }
 
+        // 判断收藏是否存在
+        QueryWrapper<Collection> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", collection.getUserId());
+        wrapper.eq("goods_id", collection.getGoodsId());
+        long count = this.count(wrapper);
+        if (count != 1) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "该用户未收藏该商品");
+        }
+
+        // 删除收藏
+        return this.removeById(id);
+    }
+
+    @Override
+    public List<CollectionInfo> getUsersCollection(Integer userId) {
+        // 查询到用户所有收藏
+        return this.getUsersCollectionJoinGoodsUser(userId);
+    }
+
+    @Override
+    public List<CollectionInfo> getUsersCollectionJoinGoodsUser(Integer userId) {
+        return collectionMapper.getUsersCollectionJoinGoodsUser(userId);
+    }
 }
 
 

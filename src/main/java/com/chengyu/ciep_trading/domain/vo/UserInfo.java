@@ -10,7 +10,6 @@ import lombok.Data;
  */
 @Data
 public class UserInfo {
-
     /**
      * 自增id
      */
