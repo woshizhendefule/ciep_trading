@@ -13,11 +13,11 @@ import java.util.Date;
  * 留言表
  *
  * @author CL
- * @TableName massage
+ * @TableName message
  */
-@TableName(value = "massage")
+@TableName(value = "message")
 @Data
-public class Massage implements Serializable {
+public class Message implements Serializable {
     /**
      * 自增id
      */

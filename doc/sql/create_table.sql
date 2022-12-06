@@ -30,7 +30,7 @@ create table goods
     release_time timestamp    default CURRENT_TIMESTAMP null comment '发布时间',
     is_release   tinyint      default 0                 not null comment '商品状态 0-已发布 1-未发布 2-待审核',
     user_id      int                                    null comment '用户id',
-    constraint goods_user_null_fk
+    constraint goods_user_id_fk
         foreign key (user_id) references user (id)
             on update cascade on delete cascade
 )
@@ -69,7 +69,7 @@ create table goods_order
     comment '订单表';
 
 -- auto-generated definition
-create table massage
+create table message
 (
     id            int auto_increment comment '自增id'
         primary key,
@@ -78,9 +78,11 @@ create table massage
     goods_user_id int                                    null comment '商品卖家编号',
     user_id       int                                    null comment '买家编号',
     constraint massage_goods_user_id_fk
-        foreign key (goods_user_id) references user (id),
-    constraint massage_user_id_fk
+        foreign key (goods_user_id) references user (id)
+            on update cascade on delete cascade,
+    constraint message_user_id_fk
         foreign key (user_id) references user (id)
+            on update cascade on delete cascade
 )
     comment '留言表';
 
