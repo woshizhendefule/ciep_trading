@@ -42,13 +42,12 @@ public interface MessageMapper extends BaseMapper<Message> {
             "         join user u on u.id = m.user_id\n" +
             "         left join user u2 on u2.id = m.at_user_id\n" +
             "where goods_id = #{goods_id}\n" +
-            "  and father_message_id = #{father_message_id}\n" +
-            "order by create_time desc;")
+            "  and father_message_id = #{father_message_id};")
     List<MessageInfo> getChildMessagesUserJoinUser(@Param("goods_id") Integer goodsId,
                                                    @Param("father_message_id") Integer fatherMessageId);
 
     /**
-     * 父级子级留言用户信息列表
+     * 父级 / 子级留言用户信息列表
      *
      * @param goodsId 商品id
      * @return 留言用户信息列表
@@ -57,8 +56,7 @@ public interface MessageMapper extends BaseMapper<Message> {
             "from message m\n" +
             "         join user u on u.id = m.user_id\n" +
             "         left join user u2 on u2.id = m.at_user_id\n" +
-            "where goods_id = #{goods_id}\n" +
-            "order by create_time desc;")
+            "where goods_id = #{goods_id};")
     List<MessageInfo> getParentChildMessagesUserJoinUser(@Param("goods_id") Integer goodsId);
 }
 
