@@ -5,18 +5,22 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.GoodsOrderMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.GoodsOrder">
-        <id property="id" column="id" jdbcType="INTEGER"/>
-        <result property="status" column="status" jdbcType="TINYINT"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="completeTime" column="complete_time" jdbcType="TIMESTAMP"/>
-        <result property="sellerScore" column="seller_score" jdbcType="INTEGER"/>
-        <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="completeTime" column="complete_time" jdbcType="TIMESTAMP"/>
+            <result property="goodsUserScore" column="goods_user_score" jdbcType="DOUBLE"/>
+            <result property="goodsUserEvaluation" column="goods_user_evaluation" jdbcType="VARCHAR"/>
+            <result property="userScore" column="user_score" jdbcType="DOUBLE"/>
+            <result property="userEvaluation" column="user_evaluation" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,status,create_time,
-        complete_time,seller_score,goods_user_id,
-        user_id
+        id,goods_user_id,user_id,
+        create_time,status,complete_time,
+        goods_user_score,goods_user_evaluation,user_score,
+        user_evaluation
     </sql>
 </mapper>

@@ -53,18 +53,23 @@ create table collection
 -- auto-generated definition
 create table goods_order
 (
-    id            int auto_increment comment '自增id'
+    id                    int auto_increment comment '自增id'
         primary key,
-    status        tinyint   default 0                 not null comment '订单状态 0-未交付 1-已交付',
-    create_time   timestamp default CURRENT_TIMESTAMP null comment '订单开始时间',
-    complete_time timestamp                           null comment '订单完成时间',
-    seller_score  int       default 0                 null comment '订单完成卖家评分（百分制）',
-    goods_user_id int                                 null comment '商品卖家编号',
-    user_id       int                                 null comment '买家编号',
+    goods_user_id         int                                    not null comment '商品卖家编号',
+    user_id               int                                    not null comment '买家编号',
+    create_time           timestamp    default CURRENT_TIMESTAMP null comment '订单开始时间',
+    status                tinyint      default 0                 not null comment '订单状态 0-未交付 1-已交付 2-已取消',
+    complete_time         timestamp                              null comment '订单完成时间',
+    goods_user_score      double       default 0                 null comment '卖家评分（五星制）',
+    goods_user_evaluation varchar(255) default ''                null comment '卖家评价',
+    user_score            double       default 0                 null comment '买家评分（五星制）',
+    user_evaluation       varchar(255) default ''                null comment '买家评价',
+    constraint goods_order_goods_user_id_fk
+        foreign key (goods_user_id) references goods (id)
+            on update cascade on delete cascade,
     constraint goods_order_user_id_fk
-        foreign key (user_id) references user (id),
-    constraint order_goods_user_id_fk
-        foreign key (goods_user_id) references user (id)
+        foreign key (user_id) references user (id)
+            on update cascade on delete cascade
 )
     comment '订单表';
 
