@@ -4,18 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 留言表
- *
- * @author CL
  * @TableName message
  */
-@TableName(value = "message")
+@TableName(value ="message")
 @Data
 public class Message implements Serializable {
     /**
@@ -23,6 +20,16 @@ public class Message implements Serializable {
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
+
+    /**
+     * 用户编号
+     */
+    private Integer userId;
+
+    /**
+     * 商品编号 !0-父留言 0-子留言
+     */
+    private Integer goodsId;
 
     /**
      * 留言内容
@@ -35,14 +42,14 @@ public class Message implements Serializable {
     private Date createTime;
 
     /**
-     * 商品卖家编号
+     * 父留言用户编号 0-父留言 !0-子留言
      */
-    private Integer goodsUserId;
+    private Integer fatherMessageId;
 
     /**
-     * 买家编号
+     * at留言用户编号 0-父留言 !0-子留言
      */
-    private Integer userId;
+    private Integer atUserId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

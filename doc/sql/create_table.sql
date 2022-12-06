@@ -71,14 +71,22 @@ create table goods_order
 -- auto-generated definition
 create table message
 (
-    id            int auto_increment comment '自增id'
+    id                int auto_increment comment '自增id'
         primary key,
-    details       varchar(255) default ''                null comment '留言内容',
-    create_time   timestamp    default CURRENT_TIMESTAMP null comment '留言时间',
-    goods_user_id int                                    null comment '商品卖家编号',
-    user_id       int                                    null comment '买家编号',
-    constraint massage_goods_user_id_fk
-        foreign key (goods_user_id) references user (id)
+    user_id           int                                    not null comment '用户编号',
+    goods_id          int                                    not null comment '商品编号 !0-父留言 0-子留言',
+    details           varchar(255) default ''                null comment '留言内容',
+    create_time       timestamp    default CURRENT_TIMESTAMP null comment '留言时间',
+    father_message_id int                                    null comment '父留言编号 0-父留言 !0-子留言',
+    at_user_id        int                                    null comment 'at留言用户编号 0-父留言 !0-子留言',
+    constraint message_at_user_id_fk
+        foreign key (at_user_id) references user (id)
+            on update cascade on delete cascade,
+    constraint message_goods_null_fk
+        foreign key (goods_id) references goods (id)
+            on update cascade on delete cascade,
+    constraint message_message_id_fk
+        foreign key (father_message_id) references message (id)
             on update cascade on delete cascade,
     constraint message_user_id_fk
         foreign key (user_id) references user (id)

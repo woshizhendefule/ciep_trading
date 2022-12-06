@@ -5,15 +5,18 @@
 <mapper namespace="com.chengyu.ciep_trading.mapper.MessageMapper">
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.Message">
-        <id property="id" column="id" jdbcType="INTEGER"/>
-        <result property="details" column="details" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+            <result property="details" column="details" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="fatherMessageId" column="father_message_id" jdbcType="INTEGER"/>
+            <result property="atUserId" column="at_user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,details,create_time,
-        goods_user_id,user_id
+        id,user_id,goods_id,
+        details,create_time,father_message_id,
+        at_user_id
     </sql>
 </mapper>
