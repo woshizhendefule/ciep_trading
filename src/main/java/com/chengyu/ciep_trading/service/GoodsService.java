@@ -2,6 +2,7 @@ package com.chengyu.ciep_trading.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chengyu.ciep_trading.domain.Goods;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,11 +39,13 @@ public interface GoodsService extends IService<Goods> {
     /**
      * 发布商品
      *
-     * @param userId 用户id
-     * @param goods  商品信息
+     * @param userId     用户id
+     * @param goods      商品信息
+     * @param picture    商品图片
+     * @param credential 商品凭证
      * @return boolean
      */
-    boolean releaseGoods(Integer userId, Goods goods);
+    boolean releaseGoods(Integer userId, Goods goods, MultipartFile picture, MultipartFile credential);
 
     /**
      * 显示用户所有商品
@@ -55,11 +58,13 @@ public interface GoodsService extends IService<Goods> {
     /**
      * 修改商品信息
      *
-     * @param userId 用户id
-     * @param goods  商品信息
+     * @param userId     用户id
+     * @param goods      商品信息
+     * @param picture    商品图片
+     * @param credential 商品凭证
      * @return boolean
      */
-    boolean modifyGoods(Integer userId, Goods goods);
+    boolean modifyGoods(Integer userId, Goods goods, MultipartFile picture, MultipartFile credential);
 
     /**
      * 删除商品

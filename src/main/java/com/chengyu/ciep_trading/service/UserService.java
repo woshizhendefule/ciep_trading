@@ -85,6 +85,22 @@ public interface UserService extends IService<User> {
     List<UserInfo> getAllUser();
 
     /**
+     * 显示所有用户：卖家用户评分信息
+     *
+     * @param id 用户id
+     * @return 用户脱敏评分信息
+     */
+    Double getAvgGoodsUserScoreJoinGoodsGoodsOrder(Integer id);
+
+    /**
+     * 显示所有用户：买家用户评分信息
+     *
+     * @param id 用户id
+     * @return 用户脱敏评分信息
+     */
+    Double getAvgUserScoreJoinGoodsGoodsOrder(Integer id);
+
+    /**
      * 删除指定用户
      *
      * @param id 用户id

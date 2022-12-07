@@ -4,7 +4,7 @@ import com.chengyu.ciep_trading.domain.User;
 import lombok.Data;
 
 /**
- * User 脱敏（无password / 无isAdmin）
+ * 用户脱敏评分信息（无password / 无isAdmin / goodsUserScore / userScore）
  *
  * @author CL
  */
@@ -39,6 +39,16 @@ public class UserInfo {
      * 用户类型 0-买家 1-卖家 2-待审核
      */
     private Integer isSeller;
+
+    /**
+     * 卖家评分（五星制）
+     */
+    private Double goodsUserScore;
+
+    /**
+     * 买家评分（五星制）
+     */
+    private Double userScore;
 
     public UserInfo() {
 

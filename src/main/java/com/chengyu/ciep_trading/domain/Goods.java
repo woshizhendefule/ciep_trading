@@ -35,6 +35,16 @@ public class Goods implements Serializable {
     private String introduce;
 
     /**
+     * 商品图片
+     */
+    private String picture;
+
+    /**
+     * 商品凭证
+     */
+    private String credential;
+
+    /**
      * 商品价格
      */
     private Double price;
@@ -45,7 +55,7 @@ public class Goods implements Serializable {
     private Date releaseTime;
 
     /**
-     * 商品状态 0-已发布 1-未发布 2-待审核
+     * 商品状态 0-已发布 1-未发布 2-待审核 3-订单中 / 已交付
      */
     private Integer isRelease;
 
@@ -53,16 +63,6 @@ public class Goods implements Serializable {
      * 用户id
      */
     private Integer userId;
-
-    /**
-     * 商品图片
-     */
-    private byte[] picture;
-
-    /**
-     * 商品凭证
-     */
-    private byte[] credential;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,7 @@
 package com.chengyu.ciep_trading.service.impl;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -11,9 +13,12 @@ import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.mapper.GoodsMapper;
 import com.chengyu.ciep_trading.service.GoodsService;
 import com.chengyu.ciep_trading.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -28,26 +33,33 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     @Resource
     private UserService userService;
 
+    @Value("${web.upload-path}")
+    private String path;
+
     public static final int CHECK_LINE = 800;
 
     @Override
     public List<Goods> getAllGoodsOrderByDesc() {
-        // 查询到所有商品
+        // 查询到所有商品 / 商品状态为0
         QueryWrapper<Goods> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("release_time");
+        wrapper.eq("is_release", 0);
         return this.list(wrapper);
     }
 
     @Override
     public Goods toViewGoods(Integer id) {
         // 判断商品有无存在
-        Goods byId = this.getById(id);
-        if (byId == null) {
+        Goods goods = this.getById(id);
+        if (goods == null) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该商品");
         }
 
         // 信息查看
-        return byId;
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("is_release", 0);
+        return this.getOne(wrapper);
     }
 
     @Override
@@ -57,16 +69,20 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
-        // 判断商品有无存在，查询到所有商品
+        // 判断商品有无存在，查询到所有商品 / 商品状态为0
         QueryWrapper<Goods> wrapper = new QueryWrapper<>();
         wrapper.like("name", name);
+        wrapper.eq("is_release", 0);
         return this.list(wrapper);
     }
 
     @Override
-    public boolean releaseGoods(Integer userId, Goods goods) {
+    public boolean releaseGoods(Integer userId, Goods goods, MultipartFile picture, MultipartFile credential) {
         // 校验
         if (StrUtil.hasBlank(goods.getName())) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
+        }
+        if (picture.getSize() <= 0) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
         if (goods.getPrice() == null || goods.getPrice() == 0) {
@@ -82,15 +98,41 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
             throw new BusinessException(ResultCode.PARAMS_ERROR, "该用户不为卖家");
         }
 
-        // 插入商品表
-        goods.setUserId(userId);
-        // TODO 商品图片上传
-        // TODO 商品凭证上传
-
-        // 以800元为界限，设置商品审核状态（≥ 800 - 2 / < 800 - 0）
+        // 以800元为界限，设置商品审核状态（≥ 800 - 2 / < 800 - 0） / 校验凭证
         if (goods.getPrice() >= CHECK_LINE) {
             goods.setIsRelease(2);
+            if (credential.getSize() <= 0) {
+                throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
+            }
         }
+
+        // 插入商品表
+        goods.setUserId(userId);
+
+        // 商品图片上传
+        if (picture.getSize() > 0) {
+            try {
+                String fileName = UUID.fastUUID() + ".jpg";
+                File file = new File(path + "\\" + fileName);
+                picture.transferTo(file);
+                goods.setPicture(fileName);
+            } catch (Exception e) {
+                throw new BusinessException(ResultCode.PARAMS_ERROR, "参数错误");
+            }
+        }
+
+        // 商品凭证上传
+        if (credential.getSize() > 0) {
+            try {
+                String fileName = UUID.fastUUID() + ".jpg";
+                File file = new File(path + "\\" + fileName);
+                credential.transferTo(file);
+                goods.setCredential(fileName);
+            } catch (Exception e) {
+                throw new BusinessException(ResultCode.PARAMS_ERROR, "参数错误");
+            }
+        }
+
         return this.save(goods);
     }
 
@@ -109,7 +151,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     }
 
     @Override
-    public boolean modifyGoods(Integer userId, Goods goods) {
+    public boolean modifyGoods(Integer userId, Goods goods, MultipartFile picture, MultipartFile credential) {
         // 校验
         if (goods.getId() == null) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
@@ -135,8 +177,36 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         wrapper.eq("id", goods.getId());
         wrapper.set("name", goods.getName());
         wrapper.set("introduce", goods.getIntroduce());
-        // TODO 商品图片修改
-        // TODO 商品凭证修改
+
+        // 商品图片修改（删除 / 添加）
+        if (picture.getSize() > 0) {
+            try {
+                FileUtil.del(path + "\\" + this.getById(goods.getId()).getPicture());
+
+                String fileName = UUID.fastUUID() + ".jpg";
+                File file = new File(path + "\\" + fileName);
+                picture.transferTo(file);
+                wrapper.set("picture", fileName);
+            } catch (Exception e) {
+                throw new BusinessException(ResultCode.PARAMS_ERROR, "参数错误");
+            }
+        }
+
+
+        // 商品凭证修改（删除 / 添加）
+        if (credential.getSize() > 0) {
+            try {
+                FileUtil.del(path + "\\" + this.getById(goods.getId()).getCredential());
+
+                String fileName = UUID.fastUUID() + ".jpg";
+                File file = new File(path + "\\" + fileName);
+                credential.transferTo(file);
+                wrapper.set("credential", fileName);
+            } catch (Exception e) {
+                throw new BusinessException(ResultCode.PARAMS_ERROR, "参数错误");
+            }
+        }
+
         wrapper.set("price", goods.getPrice());
 
         // 更新：以800元为界限，设置商品审核状态（≥ 800 - 2 / < 800 - 0）

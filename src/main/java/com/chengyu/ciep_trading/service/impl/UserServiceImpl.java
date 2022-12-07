@@ -13,6 +13,7 @@ import com.chengyu.ciep_trading.service.UserService;
 import com.chengyu.ciep_trading.utils.JwtUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         implements UserService {
+
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public String login(String name, String password) {
@@ -155,9 +159,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         List<User> list = this.list();
         List<UserInfo> userInfoList = new ArrayList<>();
         for (User user : list) {
-            userInfoList.add(new UserInfo(user));
+            UserInfo userInfo = new UserInfo(user);
+            Integer id = user.getId();
+            userInfo.setGoodsUserScore(this.getAvgGoodsUserScoreJoinGoodsGoodsOrder(id));
+            userInfo.setUserScore(this.getAvgUserScoreJoinGoodsGoodsOrder(id));
+            userInfoList.add(userInfo);
         }
         return userInfoList;
+    }
+
+    @Override
+    public Double getAvgGoodsUserScoreJoinGoodsGoodsOrder(Integer id) {
+        return userMapper.getAvgGoodsUserScoreJoinGoodsGoodsOrder(id);
+    }
+
+    @Override
+    public Double getAvgUserScoreJoinGoodsGoodsOrder(Integer id) {
+        return userMapper.getAvgUserScoreJoinGoodsGoodsOrder(id);
     }
 
     @Override

@@ -25,9 +25,9 @@ public class GoodsOrder implements Serializable {
     private Integer id;
 
     /**
-     * 商品卖家编号
+     * 商品编号
      */
-    private Integer goodsUserId;
+    private Integer goodsId;
 
     /**
      * 买家编号

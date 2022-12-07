@@ -6,7 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.chengyu.ciep_trading.domain.GoodsOrder">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="goodsUserId" column="goods_user_id" jdbcType="INTEGER"/>
+            <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,goods_user_id,user_id,
+        id,goods_id,user_id,
         create_time,status,complete_time,
         goods_user_score,goods_user_evaluation,user_score,
         user_evaluation

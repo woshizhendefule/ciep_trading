@@ -8,6 +8,8 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="credential" column="credential" jdbcType="VARCHAR"/>
             <result property="price" column="price" jdbcType="DOUBLE"/>
             <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
             <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
@@ -16,7 +18,7 @@
 
     <sql id="Base_Column_List">
         id,name,introduce,
-        price,release_time,is_release,
-        user_id,picture,credential
+        picture,credential,price,
+        release_time,is_release,user_id
     </sql>
 </mapper>
