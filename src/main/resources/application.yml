@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://81.69.248.50:3306/ciep
+    url: jdbc:mysql://1.117.106.178:3306/ciep
     username: ciep
     password: 123456
   mvc:
