@@ -22,7 +22,7 @@ public class CollectionInfo {
     /**
      * 商品图片
      */
-    private byte[] goodsPicture;
+    private String goodsPicture;
 
     /**
      * 商品价格
@@ -43,7 +43,7 @@ public class CollectionInfo {
 
     }
 
-    public CollectionInfo(String goodsName, String goodsIntroduce, byte[] goodsPicture, Double goodsPrice, String userName, String userPhone) {
+    public CollectionInfo(String goodsName, String goodsIntroduce, String goodsPicture, Double goodsPrice, String userName, String userPhone) {
         this.goodsName = goodsName;
         this.goodsIntroduce = goodsIntroduce;
         this.goodsPicture = goodsPicture;
