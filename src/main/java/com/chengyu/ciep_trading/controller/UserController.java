@@ -73,19 +73,19 @@ public class UserController {
 
     @Operation(summary = "删除指定用户")
     @PostMapping("/deleteUser")
-    public BaseResponse<Boolean> deleteUser(User user) {
-        return ResultUtils.success(userService.deleteUser(user.getId()));
+    public BaseResponse<Boolean> deleteUser(@RequestParam("id") Integer id) {
+        return ResultUtils.success(userService.deleteUser(id));
     }
 
     @Operation(summary = "卖家资质审核通过")
     @PostMapping("/sellerQualificationCheckPass")
-    public BaseResponse<Boolean> sellerQualificationCheckPass(User user) {
-        return ResultUtils.success(userService.sellerQualificationCheckPass(user.getId()));
+    public BaseResponse<Boolean> sellerQualificationCheckPass(@RequestParam("id") Integer id) {
+        return ResultUtils.success(userService.sellerQualificationCheckPass(id));
     }
 
     @Operation(summary = "卖家资质审核未通过")
     @PostMapping("/sellerQualificationCheckNotPass")
-    public BaseResponse<Boolean> sellerQualificationCheckNotPass(User user) {
-        return ResultUtils.success(userService.sellerQualificationCheckNotPass(user.getId()));
+    public BaseResponse<Boolean> sellerQualificationCheckNotPass(@RequestParam("id") Integer id) {
+        return ResultUtils.success(userService.sellerQualificationCheckNotPass(id));
     }
 }
