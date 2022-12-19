@@ -5,6 +5,7 @@ import com.chengyu.ciep_trading.common.BaseResponse;
 import com.chengyu.ciep_trading.common.ResultUtils;
 import com.chengyu.ciep_trading.domain.Goods;
 import com.chengyu.ciep_trading.domain.User;
+import com.chengyu.ciep_trading.domain.vo.GoodsInfo;
 import com.chengyu.ciep_trading.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,13 +28,13 @@ public class GoodsController {
 
     @Operation(summary = "浏览商品（发布时间降序）")
     @GetMapping("/getAllGoodsOrderByDesc")
-    public BaseResponse<List<Goods>> getAllGoodsOrderByDesc() {
+    public BaseResponse<List<GoodsInfo>> getAllGoodsOrderByDesc() {
         return ResultUtils.success(goodsService.getAllGoodsOrderByDesc());
     }
 
     @Operation(summary = "查看商品信息")
     @GetMapping("/toViewGoods")
-    public BaseResponse<Goods> toViewGoods(@RequestParam("id") Integer id) {
+    public BaseResponse<GoodsInfo> toViewGoods(@RequestParam("id") Integer id) {
         return ResultUtils.success(goodsService.toViewGoods(id));
     }
 
@@ -89,7 +90,7 @@ public class GoodsController {
 
     @Operation(summary = "显示所有商品")
     @GetMapping("/getAllGoodsOrderByAsc")
-    public BaseResponse<List<Goods>> getAllGoodsOrderByAsc() {
+    public BaseResponse<List<GoodsInfo>> getAllGoodsOrderByAsc() {
         return ResultUtils.success(goodsService.getAllGoodsOrderByAsc());
     }
 

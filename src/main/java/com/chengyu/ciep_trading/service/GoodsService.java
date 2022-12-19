@@ -2,6 +2,7 @@ package com.chengyu.ciep_trading.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chengyu.ciep_trading.domain.Goods;
+import com.chengyu.ciep_trading.domain.vo.GoodsInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -16,17 +17,32 @@ public interface GoodsService extends IService<Goods> {
     /**
      * 浏览商品（发布时间降序）
      *
-     * @return 商品列表
+     * @return 商品用户信息列表
      */
-    List<Goods> getAllGoodsOrderByDesc();
+    List<GoodsInfo> getAllGoodsOrderByDesc();
+
+    /**
+     * 浏览商品（发布时间降序）: 商品用户信息列表
+     *
+     * @return 商品用户信息列表
+     */
+    List<GoodsInfo> getAllGoodsOrderByDescJoinUser();
 
     /**
      * 查看商品信息
      *
      * @param id 商品id
-     * @return Goods
+     * @return GoodsInfo
      */
-    Goods toViewGoods(Integer id);
+    GoodsInfo toViewGoods(Integer id);
+
+    /**
+     * 查看商品信息: 商品用户信息查看
+     *
+     * @param id 商品id
+     * @return GoodsInfo
+     */
+    GoodsInfo toViewGoodsJoinUser(Integer id);
 
     /**
      * 搜索商品
@@ -77,9 +93,16 @@ public interface GoodsService extends IService<Goods> {
     /**
      * 显示所有商品
      *
-     * @return 商品列表
+     * @return 商品用户信息列表
      */
-    List<Goods> getAllGoodsOrderByAsc();
+    List<GoodsInfo> getAllGoodsOrderByAsc();
+
+    /**
+     * 显示所有商品: 商品用户信息显示列表
+     *
+     * @return 商品用户信息列表
+     */
+    List<GoodsInfo> getAllGoodsOrderByAscJoinUser();
 
     /**
      * 发布资质审核通过

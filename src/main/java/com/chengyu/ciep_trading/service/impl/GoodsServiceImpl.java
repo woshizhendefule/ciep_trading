@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chengyu.ciep_trading.common.ResultCode;
 import com.chengyu.ciep_trading.domain.Goods;
 import com.chengyu.ciep_trading.domain.User;
+import com.chengyu.ciep_trading.domain.vo.GoodsInfo;
 import com.chengyu.ciep_trading.exception.BusinessException;
 import com.chengyu.ciep_trading.mapper.GoodsMapper;
 import com.chengyu.ciep_trading.service.GoodsService;
@@ -33,22 +34,27 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     @Resource
     private UserService userService;
 
+    @Resource
+    private GoodsMapper goodsMapper;
+
     @Value("${web.upload-path}")
     private String path;
 
     public static final int CHECK_LINE = 800;
 
     @Override
-    public List<Goods> getAllGoodsOrderByDesc() {
+    public List<GoodsInfo> getAllGoodsOrderByDesc() {
         // 查询到所有商品 / 商品状态为0
-        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("release_time");
-        wrapper.eq("is_release", 0);
-        return this.list(wrapper);
+        return this.getAllGoodsOrderByDescJoinUser();
     }
 
     @Override
-    public Goods toViewGoods(Integer id) {
+    public List<GoodsInfo> getAllGoodsOrderByDescJoinUser() {
+        return goodsMapper.getAllGoodsOrderByDescJoinUser();
+    }
+
+    @Override
+    public GoodsInfo toViewGoods(Integer id) {
         // 判断商品有无存在
         Goods goods = this.getById(id);
         if (goods == null) {
@@ -56,10 +62,16 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         }
 
         // 信息查看
-        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        wrapper.eq("is_release", 0);
-        return this.getOne(wrapper);
+        GoodsInfo goodsInfo = this.toViewGoodsJoinUser(id);
+        Integer userId = goodsInfo.getUserId();
+        goodsInfo.setGoodsUserScore(userService.getAvgGoodsUserScoreJoinGoodsGoodsOrder(userId));
+        goodsInfo.setUserScore(userService.getAvgUserScoreJoinGoodsGoodsOrder(userId));
+        return goodsInfo;
+    }
+
+    @Override
+    public GoodsInfo toViewGoodsJoinUser(Integer id) {
+        return goodsMapper.toViewGoodsJoinUser(id);
     }
 
     @Override
@@ -235,11 +247,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     }
 
     @Override
-    public List<Goods> getAllGoodsOrderByAsc() {
+    public List<GoodsInfo> getAllGoodsOrderByAsc() {
         // 查询到所有商品
-        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
-        wrapper.orderByAsc("release_time");
-        return this.list(wrapper);
+        return this.getAllGoodsOrderByAscJoinUser();
+    }
+
+    @Override
+    public List<GoodsInfo> getAllGoodsOrderByAscJoinUser() {
+        return goodsMapper.getAllGoodsOrderByAscJoinUser();
     }
 
     @Override
