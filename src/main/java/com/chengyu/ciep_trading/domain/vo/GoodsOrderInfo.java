@@ -22,7 +22,7 @@ public class GoodsOrderInfo {
     private Date createTime;
 
     /**
-     * 订单状态 0-未交付 1-已交付 2-已取消
+     * 订单状态 0-未交付 1-已交付 2-已取消 3-待取消
      */
     private Integer status;
 
@@ -52,12 +52,12 @@ public class GoodsOrderInfo {
     private String userEvaluation;
 
     /**
-     * 用户名
+     * 卖家用户名
      */
     private String goodsUserName;
 
     /**
-     * 用户名
+     * 买家用户名
      */
     private String userName;
 

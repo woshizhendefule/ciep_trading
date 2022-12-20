@@ -40,7 +40,7 @@ public class GoodsOrder implements Serializable {
     private Date createTime;
 
     /**
-     * 订单状态 0-未交付 1-已交付 2-已取消
+     * 订单状态 0-未交付 1-已交付 2-已取消 3-待取消
      */
     private Integer status;
 

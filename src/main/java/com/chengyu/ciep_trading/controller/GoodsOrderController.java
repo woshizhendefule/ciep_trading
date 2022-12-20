@@ -31,6 +31,12 @@ public class GoodsOrderController {
         return ResultUtils.success(goodsOrderService.createOrders(goodsOrder));
     }
 
+    @Operation(summary = "更新订单状态：待取消")
+    @PostMapping("/cancelOrdersApply")
+    public BaseResponse<Boolean> cancelOrdersApply(@RequestParam("id") Integer id) {
+        return ResultUtils.success(goodsOrderService.cancelOrdersApply(id));
+    }
+
     @Operation(summary = "更新订单状态：已取消")
     @PostMapping("/cancelOrders")
     public BaseResponse<Boolean> cancelOrders(@RequestParam("id") Integer id) {

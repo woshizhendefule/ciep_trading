@@ -53,6 +53,15 @@ public class GoodsOrderServiceImpl extends ServiceImpl<GoodsOrderMapper, GoodsOr
     }
 
     @Override
+    public boolean cancelOrdersApply(Integer id) {
+        // 更新订单状态（ 0 → 3 ）
+        UpdateWrapper<GoodsOrder> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.set("status", 3);
+        return this.update(wrapper);
+    }
+
+    @Override
     public boolean cancelOrders(Integer id) {
         // 更新商品状态（ 3 → 0 ）
         GoodsOrder goodsOrder = this.getById(id);
@@ -64,7 +73,7 @@ public class GoodsOrderServiceImpl extends ServiceImpl<GoodsOrderMapper, GoodsOr
             throw new BusinessException(ResultCode.PARAMS_ERROR, "更新商品状态失败");
         }
 
-        // 更新订单状态（ 0 → 2 ）
+        // 更新订单状态（ 3 → 2 ）
         UpdateWrapper<GoodsOrder> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", id);
         wrapper.set("status", 2);
@@ -146,13 +155,13 @@ public class GoodsOrderServiceImpl extends ServiceImpl<GoodsOrderMapper, GoodsOr
         if (this.getById(id) == null) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该订单");
         }
-        
+
         // 删除评价
         UpdateWrapper<GoodsOrder> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", id);
-        wrapper.set("goods_user_score", null);
+        wrapper.set("goods_user_score", 0);
         wrapper.set("goods_user_evaluation", null);
-        wrapper.set("user_score", null);
+        wrapper.set("user_score", 0);
         wrapper.set("user_evaluation", null);
         return this.update(wrapper);
     }

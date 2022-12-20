@@ -22,6 +22,14 @@ public interface GoodsOrderService extends IService<GoodsOrder> {
     boolean createOrders(GoodsOrder goodsOrder);
 
     /**
+     * 更新订单状态：待取消
+     *
+     * @param id 订单id
+     * @return boolean
+     */
+    boolean cancelOrdersApply(Integer id);
+
+    /**
      * 更新订单状态：已取消
      *
      * @param id 订单id
@@ -51,11 +59,11 @@ public interface GoodsOrderService extends IService<GoodsOrder> {
      * 卖家对买家评价
      *
      * @param id             订单id
-     * @param UserScore      买家评分（五星制）
-     * @param UserEvaluation 买家评价
+     * @param userScore      买家评分（五星制）
+     * @param userEvaluation 买家评价
      * @return boolean
      */
-    boolean commentUser(Integer id, String UserScore, String UserEvaluation);
+    boolean commentUser(Integer id, String userScore, String userEvaluation);
 
     /**
      * 显示所有订单
@@ -74,7 +82,7 @@ public interface GoodsOrderService extends IService<GoodsOrder> {
     /**
      * 删除指定评价
      *
-     * @param id订单id
+     * @param id 订单id
      * @return boolean
      */
     boolean deleteComments(Integer id);

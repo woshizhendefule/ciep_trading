@@ -60,7 +60,7 @@ create table goods_order
     goods_id              int                                    not null comment '商品编号',
     user_id               int                                    not null comment '买家编号',
     create_time           timestamp    default CURRENT_TIMESTAMP null comment '订单开始时间',
-    status                tinyint      default 0                 not null comment '订单状态 0-未交付 1-已交付 2-已取消',
+    status                tinyint      default 0                 not null comment '订单状态 0-未交付 1-已交付 2-已取消 3-待取消',
     complete_time         timestamp                              null comment '订单完成时间',
     goods_user_score      double       default 0                 null comment '卖家评分（五星制）',
     goods_user_evaluation varchar(255) default ''                null comment '卖家评价',
