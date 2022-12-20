@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 留言用户信息（Message / fatherMessageName / atUserName）
+ * 留言用户信息（Message / userName / goodsName / fatherMessageName / atUserName）
  *
  * @author CL
  */
@@ -22,9 +22,20 @@ public class MessageInfo {
     private Integer userId;
 
     /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
      * 商品编号 !0-父留言 0-子留言
      */
     private Integer goodsId;
+
+
+    /**
+     * 商品名称
+     */
+    private String goodsName;
 
     /**
      * 留言内容
@@ -60,10 +71,12 @@ public class MessageInfo {
 
     }
 
-    public MessageInfo(Integer id, Integer userId, Integer goodsId, String details, Date createTime, Integer fatherMessageId, Integer atUserId, String fatherMessageName, String atUserName) {
+    public MessageInfo(Integer id, Integer userId, String userName, Integer goodsId, String goodsName, String details, Date createTime, Integer fatherMessageId, Integer atUserId, String fatherMessageName, String atUserName) {
         this.id = id;
         this.userId = userId;
+        this.userName = userName;
         this.goodsId = goodsId;
+        this.goodsName = goodsName;
         this.details = details;
         this.createTime = createTime;
         this.fatherMessageId = fatherMessageId;

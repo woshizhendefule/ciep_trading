@@ -80,14 +80,14 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
     }
 
     @Override
-    public List<MessageInfo> getParentChildMessagesUser(Integer goodsId) {
+    public List<MessageInfo> getParentChildMessagesUser() {
         // 查询到所有父级 / 子级留言
-        return this.getParentChildMessagesUserJoinUser(goodsId);
+        return this.getParentChildMessagesUserJoinUser();
     }
 
     @Override
-    public List<MessageInfo> getParentChildMessagesUserJoinUser(Integer goodsId) {
-        return messageMapper.getParentChildMessagesUserJoinUser(goodsId);
+    public List<MessageInfo> getParentChildMessagesUserJoinUser() {
+        return messageMapper.getParentChildMessagesUserJoinUser();
     }
 
     @Override

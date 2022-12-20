@@ -58,18 +58,16 @@ public interface MessageService extends IService<Message> {
     /**
      * 显示父级 / 子级留言
      *
-     * @param goodsId 商品id
      * @return 留言用户信息列表
      */
-    List<MessageInfo> getParentChildMessagesUser(Integer goodsId);
+    List<MessageInfo> getParentChildMessagesUser();
 
     /**
      * 显示父级 / 子级留言：父级 / 子级留言用户信息列表
      *
-     * @param goodsId 商品id
      * @return 留言用户信息列表
      */
-    List<MessageInfo> getParentChildMessagesUserJoinUser(Integer goodsId);
+    List<MessageInfo> getParentChildMessagesUserJoinUser();
 
     /**
      * 删除留言

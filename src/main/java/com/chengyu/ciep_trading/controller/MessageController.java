@@ -46,8 +46,8 @@ public class MessageController {
 
     @Operation(summary = "显示父级 / 子级留言")
     @GetMapping("/getParentChildMessagesUser")
-    public BaseResponse<List<MessageInfo>> getParentChildMessagesUser(@RequestParam("goodsId") Integer goodsId) {
-        return ResultUtils.success(messageService.getParentChildMessagesUser(goodsId));
+    public BaseResponse<List<MessageInfo>> getParentChildMessagesUser() {
+        return ResultUtils.success(messageService.getParentChildMessagesUser());
     }
 
     @Operation(summary = "删除留言")
