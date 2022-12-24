@@ -33,9 +33,9 @@ public class UserIdAdvice {
         CONTROLLER_MAPPING.add("/user/login");
         CONTROLLER_MAPPING.add("/user/registered");
         CONTROLLER_MAPPING.add("/user/retrievePassword");
-        CONTROLLER_MAPPING.add("/goods/getAllGoodsOrderBy");
         CONTROLLER_MAPPING.add("/goods/toViewGoods");
         CONTROLLER_MAPPING.add("/goods/searchGoods");
+        CONTROLLER_MAPPING.add("/goods/getAllGoodsOrderByDesc");
     }
 
     /**
