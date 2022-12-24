@@ -30,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     private UserMapper userMapper;
 
     @Override
-    public String login(String name, String password) {
+    public String userLogin(String name, String password) {
         // 校验
         if (StrUtil.hasBlank(name, password)) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
@@ -48,6 +48,39 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = this.getOne(wrapper);
         if (user == null) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "密码错误");
+        }
+
+        // 判断是否为用户
+        if (user.getIsAdmin() != 0) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "该账户不为用户");
+        }
+        return JwtUtils.generateToken(user.getId());
+    }
+
+    @Override
+    public String adminLogin(String name, String password) {
+        // 校验
+        if (StrUtil.hasBlank(name, password)) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
+        }
+
+        // 用户名是否存在
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("name", name);
+        if (this.getOne(wrapper) == null) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "没有查找到该用户");
+        }
+
+        // 密码是否正确
+        wrapper.eq("password", password);
+        User user = this.getOne(wrapper);
+        if (user == null) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "密码错误");
+        }
+
+        // 判断是否为管理员
+        if (user.getIsAdmin() != 1) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "该账户不为管理员");
         }
         return JwtUtils.generateToken(user.getId());
     }

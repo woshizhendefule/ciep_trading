@@ -24,9 +24,15 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary = "用户登录")
-    @GetMapping("/login")
-    public BaseResponse<String> login(@RequestParam("name") String name, @RequestParam("password") String password) {
-        return ResultUtils.success(userService.login(name, password));
+    @GetMapping("/userLogin")
+    public BaseResponse<String> userLogin(@RequestParam("name") String name, @RequestParam("password") String password) {
+        return ResultUtils.success(userService.userLogin(name, password));
+    }
+
+    @Operation(summary = "管理员登录")
+    @GetMapping("/adminLogin")
+    public BaseResponse<String> adminLogin(@RequestParam("name") String name, @RequestParam("password") String password) {
+        return ResultUtils.success(userService.adminLogin(name, password));
     }
 
     @Operation(summary = "用户注册")

@@ -30,7 +30,8 @@ public class UserIdAdvice {
 
     static {
         CONTROLLER_MAPPING = new HashSet<>();
-        CONTROLLER_MAPPING.add("/user/login");
+        CONTROLLER_MAPPING.add("/user/userLogin");
+        CONTROLLER_MAPPING.add("/user/adminLogin");
         CONTROLLER_MAPPING.add("/user/registered");
         CONTROLLER_MAPPING.add("/user/retrievePassword");
         CONTROLLER_MAPPING.add("/goods/toViewGoods");
