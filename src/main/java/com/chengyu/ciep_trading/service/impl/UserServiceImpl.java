@@ -189,7 +189,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public List<UserInfo> getAllUser() {
         // 查询到所有用户
-        List<User> list = this.list();
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_admin", 0);
+        List<User> list = this.list(wrapper);
         List<UserInfo> userInfoList = new ArrayList<>();
         for (User user : list) {
             UserInfo userInfo = new UserInfo(user);
