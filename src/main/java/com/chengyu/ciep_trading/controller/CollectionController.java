@@ -36,7 +36,7 @@ public class CollectionController {
     }
 
     @Operation(summary = "显示用户所有收藏")
-    @GetMapping("/getUsersGoods")
+    @GetMapping("/getUsersCollection")
     public BaseResponse<List<CollectionInfo>> getUsersCollection(User user) {
         return ResultUtils.success(goodsCollection.getUsersCollection(user.getId()));
     }

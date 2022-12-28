@@ -22,7 +22,7 @@ public interface MessageMapper extends BaseMapper<Message> {
      * @param goodsId 商品id
      * @return 留言用户信息列表
      */
-    @Select("select m.*, u.name post_user_name\n" +
+    @Select("select m.*, u.name userName\n" +
             "from message m\n" +
             "         join user u on u.id = m.user_id\n" +
             "where goods_id = #{goods_id}\n" +
@@ -37,9 +37,10 @@ public interface MessageMapper extends BaseMapper<Message> {
      * @param fatherMessageId 父留言编号
      * @return 留言用户信息列表
      */
-    @Select("select m.*, u.name fatherMessageName, u2.name atUserName\n" +
+    @Select("select m.*, u3.name userName, u.name fatherMessageName, u2.name atUserName\n" +
             "from message m\n" +
             "         join user u on u.id = m.user_id\n" +
+            "         join user u3 on u3.id = m.user_id\n" +
             "         left join user u2 on u2.id = m.at_user_id\n" +
             "where goods_id = #{goods_id}\n" +
             "  and father_message_id = #{father_message_id};")
@@ -49,7 +50,6 @@ public interface MessageMapper extends BaseMapper<Message> {
     /**
      * 父级 / 子级留言用户信息列表
      *
-     * @param goodsId 商品id
      * @return 留言用户信息列表
      */
     @Select("select m.*, u.name userName, g.name goodsName, u2.name fatherMessageName, u3.name atUserName\n" +
