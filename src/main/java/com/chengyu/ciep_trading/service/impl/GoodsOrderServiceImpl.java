@@ -139,14 +139,36 @@ public class GoodsOrderServiceImpl extends ServiceImpl<GoodsOrderMapper, GoodsOr
     }
 
     @Override
-    public List<GoodsOrderInfo> getUsersGoodsOrder() {
-        // 查询到所有订单
-        return this.getUsersGoodsOrderJoinUserGoods();
+    public List<GoodsOrderInfo> getGoodsUsersGoodsOrder(Integer goodsUserId) {
+        // 查询到卖家所有订单
+        return this.getGoodsUsersGoodsOrderJoinUserGoods(goodsUserId);
     }
 
     @Override
-    public List<GoodsOrderInfo> getUsersGoodsOrderJoinUserGoods() {
-        return goodsOrderMapper.getUsersGoodsOrderJoinUserGoods();
+    public List<GoodsOrderInfo> getGoodsUsersGoodsOrderJoinUserGoods(Integer goodsUserId) {
+        return goodsOrderMapper.getGoodsUsersGoodsOrderJoinUserGoods(goodsUserId);
+    }
+
+    @Override
+    public List<GoodsOrderInfo> getUsersGoodsOrder(Integer userId) {
+        // 查询到买家所有订单
+        return this.getUsersGoodsOrderJoinUserGoods(userId);
+    }
+
+    @Override
+    public List<GoodsOrderInfo> getUsersGoodsOrderJoinUserGoods(Integer userId) {
+        return goodsOrderMapper.getUsersGoodsOrderJoinUserGoods(userId);
+    }
+
+    @Override
+    public List<GoodsOrderInfo> getAllGoodsOrder() {
+        // 查询到所有订单
+        return this.getAllGoodsOrderJoinUserGoods();
+    }
+
+    @Override
+    public List<GoodsOrderInfo> getAllGoodsOrderJoinUserGoods() {
+        return goodsOrderMapper.getAllGoodsOrderJoinUserGoods();
     }
 
     @Override

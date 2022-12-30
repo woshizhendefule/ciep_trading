@@ -66,18 +66,50 @@ public interface GoodsOrderService extends IService<GoodsOrder> {
     boolean commentUser(Integer id, String userScore, String userEvaluation);
 
     /**
+     * 显示卖家所有订单
+     *
+     * @param goodsUserId 卖家id
+     * @return 订单用户商品信息列表
+     */
+    List<GoodsOrderInfo> getGoodsUsersGoodsOrder(Integer goodsUserId);
+
+    /**
+     * 显示卖家所有订单：订单用户商品信息列表(卖家所有)
+     *
+     * @param goodsUserId 卖家id
+     * @return 订单用户商品信息列表
+     */
+    List<GoodsOrderInfo> getGoodsUsersGoodsOrderJoinUserGoods(Integer goodsUserId);
+
+    /**
+     * 显示买家所有订单
+     *
+     * @param userId 买家id
+     * @return 订单用户商品信息列表
+     */
+    List<GoodsOrderInfo> getUsersGoodsOrder(Integer userId);
+
+    /**
+     * 显示买家所有订单：订单用户商品信息列表(买家所有)
+     *
+     * @param userId 买家id
+     * @return 订单用户商品信息列表
+     */
+    List<GoodsOrderInfo> getUsersGoodsOrderJoinUserGoods(Integer userId);
+
+    /**
      * 显示所有订单
      *
      * @return 订单用户商品信息列表
      */
-    List<GoodsOrderInfo> getUsersGoodsOrder();
+    List<GoodsOrderInfo> getAllGoodsOrder();
 
     /**
      * 显示所有订单：订单用户商品信息列表
      *
      * @return 订单用户商品信息列表
      */
-    List<GoodsOrderInfo> getUsersGoodsOrderJoinUserGoods();
+    List<GoodsOrderInfo> getAllGoodsOrderJoinUserGoods();
 
     /**
      * 删除指定评价

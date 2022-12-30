@@ -65,10 +65,22 @@ public class GoodsOrderController {
         return ResultUtils.success(goodsOrderService.commentUser(id, userScore, userEvaluation));
     }
 
-    @Operation(summary = "显示所有订单")
+    @Operation(summary = "显示卖家所有订单")
+    @GetMapping("/getGoodsUsersGoodsOrder")
+    public BaseResponse<List<GoodsOrderInfo>> getGoodsUsersGoodsOrder(@RequestParam("goodsUserId") Integer goodsUserId) {
+        return ResultUtils.success(goodsOrderService.getGoodsUsersGoodsOrder(goodsUserId));
+    }
+
+    @Operation(summary = "显示买家所有订单")
     @GetMapping("/getUsersGoodsOrder")
-    public BaseResponse<List<GoodsOrderInfo>> getUsersGoodsOrder() {
-        return ResultUtils.success(goodsOrderService.getUsersGoodsOrder());
+    public BaseResponse<List<GoodsOrderInfo>> getUsersGoodsOrder(@RequestParam("userId") Integer userId) {
+        return ResultUtils.success(goodsOrderService.getUsersGoodsOrder(userId));
+    }
+
+    @Operation(summary = "显示所有订单")
+    @GetMapping("/getAllGoodsOrder")
+    public BaseResponse<List<GoodsOrderInfo>> getAllGoodsOrder() {
+        return ResultUtils.success(goodsOrderService.getAllGoodsOrder());
     }
 
     @Operation(summary = "删除指定评价")
