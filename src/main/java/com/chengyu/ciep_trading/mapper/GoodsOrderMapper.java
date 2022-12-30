@@ -45,15 +45,21 @@ public interface GoodsOrderMapper extends BaseMapper<GoodsOrder> {
      */
     @Select("select go.id,\n" +
             "       u.name  goods_user_name,\n" +
-            "       g.name  goods_name,\n" +
+            "       u.phone goods_user_phone,\n" +
             "       u2.name user_name,\n" +
+            "       u2.phone user_phone,\n" +
+            "       g.name  goods_name,\n" +
             "       go.goods_user_score,\n" +
             "       go.goods_user_evaluation,\n" +
             "       go.user_score,\n" +
             "       go.user_evaluation,\n" +
             "       go.create_time,\n" +
             "       go.complete_time,\n" +
-            "       go.status\n" +
+            "       go.status,\n" +
+            "       go.goods_user_score,\n" +
+            "       go.goods_user_evaluation,\n" +
+            "       go.user_score,\n" +
+            "       go.user_evaluation\n" +
             "from goods_order go\n" +
             "         join goods g on g.id = go.goods_id\n" +
             "         join user u on u.id = g.user_id\n" +
@@ -69,15 +75,21 @@ public interface GoodsOrderMapper extends BaseMapper<GoodsOrder> {
      */
     @Select("select go.id,\n" +
             "       u.name  goods_user_name,\n" +
-            "       g.name  goods_name,\n" +
+            "       u.phone goods_user_phone,\n" +
             "       u2.name user_name,\n" +
+            "       u2.phone user_phone,\n" +
+            "       g.name  goods_name,\n" +
             "       go.goods_user_score,\n" +
             "       go.goods_user_evaluation,\n" +
             "       go.user_score,\n" +
             "       go.user_evaluation,\n" +
             "       go.create_time,\n" +
             "       go.complete_time,\n" +
-            "       go.status\n" +
+            "       go.status,\n" +
+            "       go.goods_user_score,\n" +
+            "       go.goods_user_evaluation,\n" +
+            "       go.user_score,\n" +
+            "       go.user_evaluation\n" +
             "from goods_order go\n" +
             "         join goods g on g.id = go.goods_id\n" +
             "         join user u on u.id = g.user_id\n" +

@@ -57,9 +57,19 @@ public class GoodsOrderInfo {
     private String goodsUserName;
 
     /**
+     * 卖家手机
+     */
+    private String goodsUserPhone;
+
+    /**
      * 买家用户名
      */
     private String userName;
+
+    /**
+     * 买家手机
+     */
+    private String userPhone;
 
     /**
      * 商品名称
@@ -70,7 +80,7 @@ public class GoodsOrderInfo {
 
     }
 
-    public GoodsOrderInfo(Integer id, Date createTime, Integer status, Date completeTime, Double goodsUserScore, String goodsUserEvaluation, Double userScore, String userEvaluation, String goodsUserName, String userName, String goodsName) {
+    public GoodsOrderInfo(Integer id, Date createTime, Integer status, Date completeTime, Double goodsUserScore, String goodsUserEvaluation, Double userScore, String userEvaluation, String goodsUserName, String goodsUserPhone, String userName, String userPhone, String goodsName) {
         this.id = id;
         this.createTime = createTime;
         this.status = status;
@@ -80,7 +90,9 @@ public class GoodsOrderInfo {
         this.userScore = userScore;
         this.userEvaluation = userEvaluation;
         this.goodsUserName = goodsUserName;
+        this.goodsUserPhone = goodsUserPhone;
         this.userName = userName;
+        this.userPhone = userPhone;
         this.goodsName = goodsName;
     }
 }

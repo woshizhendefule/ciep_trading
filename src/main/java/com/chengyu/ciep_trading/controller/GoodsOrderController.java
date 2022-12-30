@@ -52,16 +52,16 @@ public class GoodsOrderController {
     @Operation(summary = "买家对卖家评价")
     @PostMapping("/commentGoodsUser")
     public BaseResponse<Boolean> commentGoodsUser(@RequestParam("id") Integer id,
-                                                  @RequestParam("goods_user_score") String goodsUserScore,
-                                                  @RequestParam("goods_user_evaluation") String goodsUserEvaluation) {
+                                                  @RequestParam("goodsUserScore") String goodsUserScore,
+                                                  @RequestParam("goodsUserEvaluation") String goodsUserEvaluation) {
         return ResultUtils.success(goodsOrderService.commentGoodsUser(id, goodsUserScore, goodsUserEvaluation));
     }
 
     @Operation(summary = "卖家对买家评价")
     @PostMapping("/commentUser")
     public BaseResponse<Boolean> commentUser(@RequestParam("id") Integer id,
-                                             @RequestParam("user_score") String userScore,
-                                             @RequestParam("user_evaluation") String userEvaluation) {
+                                             @RequestParam("userScore") String userScore,
+                                             @RequestParam("userEvaluation") String userEvaluation) {
         return ResultUtils.success(goodsOrderService.commentUser(id, userScore, userEvaluation));
     }
 
