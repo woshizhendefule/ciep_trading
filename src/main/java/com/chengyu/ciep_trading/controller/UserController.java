@@ -59,14 +59,20 @@ public class UserController {
         return ResultUtils.success(userService.toViewUserInfo(userInfo.getId()));
     }
 
-    @Operation(summary = "用户个人信息修改（name / phone）")
-    @PostMapping("/modifyUser")
-    public BaseResponse<Boolean> modifyUser(@RequestBody User user) {
-        return ResultUtils.success(userService.modifyUser(user));
+    @Operation(summary = "用户个人信息修改（name）")
+    @PostMapping("/modifyUserName")
+    public BaseResponse<Boolean> modifyUserName(User user, @RequestParam("newName") String newName) {
+        return ResultUtils.success(userService.modifyUserName(user.getId(), newName));
+    }
+
+    @Operation(summary = "用户个人信息修改（phone）")
+    @PostMapping("/modifyUserPhone")
+    public BaseResponse<Boolean> modifyUserPhone(User user, @RequestParam("newPhone") String newPhone) {
+        return ResultUtils.success(userService.modifyUserPhone(user.getId(), newPhone));
     }
 
     @Operation(summary = "卖家资质申请")
-    @PostMapping("/sellerQualificationApply")
+    @GetMapping("/sellerQualificationApply")
     public BaseResponse<Boolean> sellerQualificationApply(User user) {
         return ResultUtils.success(userService.sellerQualificationApply(user.getId()));
     }

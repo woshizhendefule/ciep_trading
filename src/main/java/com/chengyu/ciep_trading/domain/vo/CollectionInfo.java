@@ -10,6 +10,11 @@ import lombok.Data;
 @Data
 public class CollectionInfo {
     /**
+     * 收藏id
+     */
+    private Integer id;
+
+    /**
      * 商品id
      */
     private Integer goodsId;

@@ -72,12 +72,22 @@ public interface UserService extends IService<User> {
     UserInfo toViewUserInfo(Integer id);
 
     /**
-     * 用户个人信息修改（name / phone）
+     * 用户个人信息修改（name）
      *
-     * @param user 用户User数据
+     * @param id      用户id
+     * @param newName (新)用户名
      * @return boolean
      */
-    boolean modifyUser(User user);
+    boolean modifyUserName(Integer id, String newName);
+
+    /**
+     * 用户个人信息修改（phone）
+     *
+     * @param id       用户id
+     * @param newPhone (新)手机
+     * @return boolean
+     */
+    boolean modifyUserPhone(Integer id, String newPhone);
 
     /**
      * 卖家资质申请

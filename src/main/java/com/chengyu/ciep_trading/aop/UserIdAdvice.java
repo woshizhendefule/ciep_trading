@@ -37,6 +37,8 @@ public class UserIdAdvice {
         CONTROLLER_MAPPING.add("/goods/toViewGoods");
         CONTROLLER_MAPPING.add("/goods/searchGoods");
         CONTROLLER_MAPPING.add("/goods/getAllGoodsOrderByDesc");
+        CONTROLLER_MAPPING.add("/message/getParentMessagesUser");
+        CONTROLLER_MAPPING.add("/message/getChildMessagesUser");
     }
 
     /**

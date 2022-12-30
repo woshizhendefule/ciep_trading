@@ -155,25 +155,40 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public boolean modifyUser(User user) {
+    public boolean modifyUserName(Integer id, String newName) {
         // 校验
-        if (StrUtil.hasBlank(user.getName(), user.getPhone())) {
+        if (StrUtil.hasBlank(newName)) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
         }
 
         // 判断（name）唯一
         UpdateWrapper<User> wrapperNa = new UpdateWrapper<>();
-        wrapperNa.eq("name", user.getName());
+        wrapperNa.eq("name", newName);
         User userNa = this.getOne(wrapperNa);
-        if (!userNa.getId().equals(user.getId())) {
+        System.out.println(userNa);
+
+        if (userNa != null) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名已存在");
         }
 
-        // 修改（name / phone）
+        // 修改（name）
         UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("id", user.getId());
-        wrapper.set("name", user.getName());
-        wrapper.set("phone", user.getPhone());
+        wrapper.eq("id", id);
+        wrapper.set("name", newName);
+        return this.update(wrapper);
+    }
+
+    @Override
+    public boolean modifyUserPhone(Integer id, String newPhone) {
+        // 校验
+        if (StrUtil.hasBlank(newPhone)) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
+        }
+
+        // 修改（phone）
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.set("phone", newPhone);
         return this.update(wrapper);
     }
 

@@ -22,7 +22,8 @@ public interface CollectionMapper extends BaseMapper<Collection> {
      * @param userId 用户id
      * @return 收藏商品用户列表
      */
-    @Select("select g.id        goods_id,\n" +
+    @Select("select c.id,\n" +
+            "       g.id        goods_id,\n" +
             "       g.name      goods_name,\n" +
             "       g.introduce goods_introduce,\n" +
             "       g.picture   goods_picture,\n" +
@@ -33,7 +34,7 @@ public interface CollectionMapper extends BaseMapper<Collection> {
             "from user u\n" +
             "         join collection c on u.id = c.user_id\n" +
             "         join goods g on c.goods_id = g.id\n" +
-            "where u.id = #{user_id};")
+            "where u.id = #{user_id}")
     List<CollectionInfo> getUsersCollectionJoinGoodsUser(@Param("user_id") Integer userId);
 
 }
