@@ -62,9 +62,9 @@ create table goods_order
     create_time           timestamp    default CURRENT_TIMESTAMP null comment '订单开始时间',
     status                tinyint      default 0                 not null comment '订单状态 0-未交付 1-已交付 2-已取消 3-待取消',
     complete_time         timestamp                              null comment '订单完成时间',
-    goods_user_score      double       default 0                 null comment '卖家评分（五星制）',
+    goods_user_score      double       default -1                null comment '卖家评分（五星制）',
     goods_user_evaluation varchar(255) default ''                null comment '卖家评价',
-    user_score            double       default 0                 null comment '买家评分（五星制）',
+    user_score            double       default -1                null comment '买家评分（五星制）',
     user_evaluation       varchar(255) default ''                null comment '买家评价',
     constraint goods_order_goods_id_fk
         foreign key (goods_id) references goods (id)
