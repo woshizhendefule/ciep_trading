@@ -51,7 +51,7 @@ public class GoodsController {
                                               @RequestParam("introduce") String introduce,
                                               @RequestParam("price") Double price,
                                               @RequestParam("picture") MultipartFile picture,
-                                              @RequestParam("credential") MultipartFile credential) {
+                                              @RequestParam(value = "credential", required = false) MultipartFile credential) {
         Goods goods = new Goods();
         goods.setName(StrUtil.sub(name, 0, -1));
         goods.setIntroduce(StrUtil.sub(introduce, 0, -1));
@@ -73,7 +73,7 @@ public class GoodsController {
                                              @RequestParam("introduce") String introduce,
                                              @RequestParam("price") Double price,
                                              @RequestParam("picture") MultipartFile picture,
-                                             @RequestParam("credential") MultipartFile credential) {
+                                             @RequestParam(value = "credential", required = false) MultipartFile credential) {
         Goods goods = new Goods();
         goods.setId(id);
         goods.setName(StrUtil.sub(name, 0, -1));

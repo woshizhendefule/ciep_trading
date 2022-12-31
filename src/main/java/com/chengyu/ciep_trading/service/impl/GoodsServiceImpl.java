@@ -134,7 +134,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         }
 
         // 商品凭证上传
-        if (credential.getSize() > 0) {
+        if (credential != null && credential.getSize() > 0) {
             try {
                 String fileName = UUID.fastUUID() + ".jpg";
                 File file = new File(path + "\\" + fileName);
@@ -206,7 +206,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
 
 
         // 商品凭证修改（删除 / 添加）
-        if (credential.getSize() > 0) {
+        if (credential != null && credential.getSize() > 0) {
             try {
                 FileUtil.del(path + "\\" + this.getById(goods.getId()).getCredential());
 
