@@ -82,6 +82,12 @@ public class GoodsController {
         return ResultUtils.success(goodsService.modifyGoods(user.getId(), goods, picture, credential));
     }
 
+    @Operation(summary = "重新发布")
+    @PostMapping("/againReleaseGoods")
+    public BaseResponse<Boolean> againReleaseGoods(@RequestParam("id") Integer id) {
+        return ResultUtils.success(goodsService.againReleaseGoods(id));
+    }
+
     @Operation(summary = "删除商品")
     @PostMapping("/deleteGoods")
     public BaseResponse<Boolean> deleteGoods(@RequestParam("id") Integer id) {

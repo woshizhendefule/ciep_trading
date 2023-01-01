@@ -233,6 +233,23 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     }
 
     @Override
+    public boolean againReleaseGoods(Integer id) {
+        // ≥ 800: 更新商品状态（ 1 → 2 ） / < 800: 更新商品状态（ 1 → 0 ）
+        Goods goods = this.getById(id);
+        if (goods.getPrice() >= CHECK_LINE) {
+            UpdateWrapper<Goods> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id", id);
+            wrapper.set("is_release", 2);
+            return this.update(wrapper);
+        } else {
+            UpdateWrapper<Goods> wrapper = new UpdateWrapper<>();
+            wrapper.eq("id", id);
+            wrapper.set("is_release", 0);
+            return this.update(wrapper);
+        }
+    }
+
+    @Override
     public boolean deleteGoods(Integer id) {
         // 判断用户是否为卖家
         Goods goods = this.getById(id);

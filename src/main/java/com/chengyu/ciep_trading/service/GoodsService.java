@@ -83,6 +83,14 @@ public interface GoodsService extends IService<Goods> {
     boolean modifyGoods(Integer userId, Goods goods, MultipartFile picture, MultipartFile credential);
 
     /**
+     * 重新发布
+     *
+     * @param id 商品id
+     * @return boolean
+     */
+    boolean againReleaseGoods(Integer id);
+
+    /**
      * 删除商品
      *
      * @param id 商品id
