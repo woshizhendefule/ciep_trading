@@ -181,10 +181,10 @@ public class GoodsOrderServiceImpl extends ServiceImpl<GoodsOrderMapper, GoodsOr
         // 删除评价
         UpdateWrapper<GoodsOrder> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", id);
-        wrapper.set("goods_user_score", 0);
-        wrapper.set("goods_user_evaluation", null);
-        wrapper.set("user_score", 0);
-        wrapper.set("user_evaluation", null);
+        wrapper.set("goods_user_score", -1);
+        wrapper.set("goods_user_evaluation", "");
+        wrapper.set("user_score", -1);
+        wrapper.set("user_evaluation", "");
         return this.update(wrapper);
     }
 }
