@@ -1,6 +1,5 @@
 package com.chengyu.ciep_trading.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.chengyu.ciep_trading.common.BaseResponse;
 import com.chengyu.ciep_trading.common.ResultUtils;
 import com.chengyu.ciep_trading.domain.Goods;
@@ -53,8 +52,8 @@ public class GoodsController {
                                               @RequestParam("picture") MultipartFile picture,
                                               @RequestParam(value = "credential", required = false) MultipartFile credential) {
         Goods goods = new Goods();
-        goods.setName(StrUtil.sub(name, 0, -1));
-        goods.setIntroduce(StrUtil.sub(introduce, 0, -1));
+        goods.setName(name);
+        goods.setIntroduce(introduce);
         goods.setPrice(price);
         return ResultUtils.success(goodsService.releaseGoods(user.getId(), goods, picture, credential));
     }
@@ -76,8 +75,8 @@ public class GoodsController {
                                              @RequestParam(value = "credential", required = false) MultipartFile credential) {
         Goods goods = new Goods();
         goods.setId(id);
-        goods.setName(StrUtil.sub(name, 0, -1));
-        goods.setIntroduce(StrUtil.sub(introduce, 0, -1));
+        goods.setName(name);
+        goods.setIntroduce(introduce);
         goods.setPrice(price);
         return ResultUtils.success(goodsService.modifyGoods(user.getId(), goods, picture, credential));
     }
