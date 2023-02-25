@@ -1,5 +1,5 @@
 # 校园闲置电子产品交易平台
-本项目为ciep_trading为项目服务端开发，ciep_trading_view为项目前端开发
+ciep_trading为项目服务端开发，ciep_trading_view为项目前端开发
 ## 主要技术栈
 - Spring Boot
 - JWT
