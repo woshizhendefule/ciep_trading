@@ -94,11 +94,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         // 判断用户名是否存在
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("name", name)
-                .or().eq("student_id", studentId);
+        wrapper.eq("name", name);
         long count = this.count(wrapper);
         if (count >= 1) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名已存在");
+        }
+
+        // 判断学号是否存在
+        QueryWrapper<User> wrapperSi = new QueryWrapper<>();
+        wrapperSi.eq("student_id", studentId);
+        long countSi = this.count(wrapperSi);
+        if (countSi >= 1) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR, "学号已存在");
         }
 
         // 注册用户表
